@@ -20,19 +20,23 @@ def returns [VarDef self]
     : ID ':=' expr { $self = new VarDef($ID.text, $expr.e); }
     ;
 defn returns [FnDef self]
-    locals [
-    StatementList stmts = new StatementList()
-    ]
-    : ID '(' ')' ':=' expr
-     { $self = new FnDef($ID.text, $expr.e); }
-    | ID '(' ')' '{'
-        stmt+
-      '}'
-     { $self = new FnDef($ID.text, $stmts); }
+    locals [ List<Param> params = new ArrayList<Param>() ]
+    : ID '(' param (',' param)* ')' ':=' expr
+    { $self = new FnDef($ID.text, $params, $expr.e); }
+    | ID '(' param (',' param)* ')' block
+    { $self = new FnDef($ID.text, $params, $block::stmts); }
     ;
+
+param : ID ':' type { $defn::params.add(new Param($ID.text)); };
 stmt returns [Stmt s]
-    : 'return' expr { $defn::stmts.add(new Return($expr.e)); }
+    : 'return' expr ';'
+    { $block::stmts.add(new Return($expr.e)); }
+    | block
     ;
+block locals [ StatementList stmts = new StatementList() ]
+     : '{' stmt+ '}'
+     ;
+type: ID;
 
 expr returns [Expr e]
     : ID { $e = new Var($ID.text); }
