@@ -28,12 +28,20 @@ public class ParserTest {
         var parser = new NoParser(tokens);
         var v = parser.top().def().v;
         assertEquals("x", v.name());
+    }
+    @Test void testExpr() {
+        assertEquals(new Int(1), parseExpr("1"));
+        assertEquals(new Binary("+", new Int(2), new Int(3)), parseExpr("2+3"));
         assertEquals(new Binary("+",
-                        new Binary("*",
-                            new Int(1),
-                            new Int(2)
-                        ),
-                        new Int(3)
-                    ), v.expr());
+                new Binary("*", new Int(1), new Int(2)),
+                new Int(3)), parseExpr("1*2+3"));
+    }
+
+    static Expr parseExpr(String code) {
+        var in = new ANTLRInputStream(code);
+        var lexer = new NoLexer(in);
+        var tokens = new CommonTokenStream(lexer);
+        var parser = new NoParser(tokens);
+        return parser.expr().e;
     }
 }
