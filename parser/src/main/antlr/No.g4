@@ -4,6 +4,8 @@ grammar No;
 package lang.no.parser;
 }
 
+prog : top*;
+
 top : def
     ;
 
