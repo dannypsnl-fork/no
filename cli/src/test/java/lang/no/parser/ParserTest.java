@@ -11,6 +11,7 @@ public class ParserTest {
     @Test void testProgAll() {
         var in = new ANTLRInputStream(
             """
+            using io;
             x := 1;
             y:=2;
             z() := 2;
@@ -21,10 +22,11 @@ public class ParserTest {
         var tokens = new CommonTokenStream(lexer);
         var parser = new NoParser(tokens);
         var prog = parser.prog().tops;
-        assertEquals("x", ((VarDef) prog.get(0)).name());
-        assertEquals("y", ((VarDef) prog.get(1)).name());
-        assertEquals("z", ((FnDef) prog.get(2)).name());
-        assertEquals("add", ((FnDef) prog.get(3)).name());
+        assertEquals("io", ((Using) prog.get(0)).module());
+        assertEquals("x", ((VarDef) prog.get(1)).name());
+        assertEquals("y", ((VarDef) prog.get(2)).name());
+        assertEquals("z", ((FnDef) prog.get(3)).name());
+        assertEquals("add", ((FnDef) prog.get(4)).name());
     }
     @Test void testVarDef() {
         var in = new ANTLRInputStream("x := 1*2+3;");

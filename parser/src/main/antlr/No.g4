@@ -14,8 +14,13 @@ prog locals [
     : top*
     ;
 top returns [TopStmt s]
-    : defn { $prog::tops.add($defn.self); }
+    : using { $prog::tops.add($using.self); }
+    | defn { $prog::tops.add($defn.self); }
     | def { $prog::tops.add($def.self); }
+    ;
+using returns [Using self]
+    : 'using' ID ';'
+      { $self = new Using($ID.text); }
     ;
 def returns [VarDef self]
     : ID ':=' expr ';'
