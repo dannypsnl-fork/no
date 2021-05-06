@@ -1,6 +1,7 @@
 package lang.no.parser;
 
 import lang.no.concrete.FnDef;
+import lang.no.concrete.TopStmt;
 import lang.no.concrete.Using;
 import lang.no.concrete.VarDef;
 import lang.no.concrete.expr.Binary;
@@ -10,11 +11,12 @@ import lang.no.concrete.expr.Op;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Test;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
     @Test void testProgAll() {
-        var in = new ANTLRInputStream(
+        var tops = parseTops(
             """
             using io;
             x := 1;
@@ -28,24 +30,16 @@ public class ParserTest {
             }
             """
         );
-        var lexer = new NoLexer(in);
-        var tokens = new CommonTokenStream(lexer);
-        var parser = new NoParser(tokens);
-        var prog = parser.prog().tops;
-        assertEquals("io", ((Using) prog.get(0)).module());
-        assertEquals("x", ((VarDef) prog.get(1)).name());
-        assertEquals("y", ((VarDef) prog.get(2)).name());
-        assertEquals("z", ((FnDef) prog.get(3)).name());
-        assertEquals("add", ((FnDef) prog.get(4)).name());
-        assertEquals("add2", ((FnDef) prog.get(5)).name());
+        assertEquals("io", ((Using) tops.get(0)).module());
+        assertEquals("x", ((VarDef) tops.get(1)).name());
+        assertEquals("y", ((VarDef) tops.get(2)).name());
+        assertEquals("z", ((FnDef) tops.get(3)).name());
+        assertEquals("add", ((FnDef) tops.get(4)).name());
+        assertEquals("add2", ((FnDef) tops.get(5)).name());
     }
     @Test void testVarDef() {
-        var in = new ANTLRInputStream("x := 1*2+3;");
-        var lexer = new NoLexer(in);
-        var tokens = new CommonTokenStream(lexer);
-        var parser = new NoParser(tokens);
-        var v = (VarDef) parser.prog().tops.get(0);
-        assertEquals("x", v.name());
+        var tops = parseTops("x := 1*2+3;");
+        assertEquals("x", ((VarDef) tops.get(0)).name());
     }
     @Test void testExpr() {
         assertEquals(new Int(1), parseExpr("1"));
@@ -55,11 +49,18 @@ public class ParserTest {
                 new Int(3)), parseExpr("1*2+3"));
     }
 
-    static Expr parseExpr(String code) {
+    Expr parseExpr(String code) {
         var in = new ANTLRInputStream(code);
         var lexer = new NoLexer(in);
         var tokens = new CommonTokenStream(lexer);
         var parser = new NoParser(tokens);
         return parser.expr().e;
+    }
+    List<TopStmt> parseTops(String code) {
+        var in = new ANTLRInputStream(code);
+        var lexer = new NoLexer(in);
+        var tokens = new CommonTokenStream(lexer);
+        var parser = new NoParser(tokens);
+        return parser.prog().tops;
     }
 }
