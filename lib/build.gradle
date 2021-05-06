@@ -23,3 +23,5 @@ generateGrammarSource {
 test {
     useJUnit()
 }
+
+//idea.module.generatedSourceDirs.add('build/generated-src/antlr/main')

@@ -12,4 +12,6 @@ public class WhatEverTest {
     @Test public void testVariableDef() {
         assertEquals(new VariableDef(""), new VariableDef(""));
     }
+    @Test public void testParseTop() {
+    }
 }
