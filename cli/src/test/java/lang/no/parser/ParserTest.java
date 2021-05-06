@@ -16,6 +16,11 @@ public class ParserTest {
             y:=2;
             z() := 2;
             add(a: int, b: int) := a+b;
+            add2(a: int, b: int) {
+                x := a;
+                y := b;
+                return x+y;
+            }
             """
         );
         var lexer = new NoLexer(in);
@@ -27,6 +32,7 @@ public class ParserTest {
         assertEquals("y", ((VarDef) prog.get(2)).name());
         assertEquals("z", ((FnDef) prog.get(3)).name());
         assertEquals("add", ((FnDef) prog.get(4)).name());
+        assertEquals("add2", ((FnDef) prog.get(5)).name());
     }
     @Test void testVarDef() {
         var in = new ANTLRInputStream("x := 1*2+3;");

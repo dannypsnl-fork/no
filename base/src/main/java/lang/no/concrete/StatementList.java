@@ -4,9 +4,7 @@ import lang.no.concrete.stmt.Stmt;
 
 import java.util.List;
 
-public class StatementList implements Body {
-    public List<Stmt> stmtList;
-
+public record StatementList(List<Stmt> stmtList) implements Body, Stmt {
     public void add(Stmt s) {
         stmtList.add(s);
     }

@@ -33,17 +33,20 @@ defn returns [FnDef self]
     : ID '(' (param (',' param)*)? ')' ':=' expr ';'
     { $self = new FnDef($ID.text, $params, $expr.e); }
     | ID '(' (param (',' param)*)? ')' block
-    { $self = new FnDef($ID.text, $params, $block::stmts); }
+    { $self = new FnDef($ID.text, $params, $block.self); }
     ;
 
 param : ID ':' type { $defn::params.add(new Param($ID.text, $type.t)); };
 stmt returns [Stmt s]
     : 'return' expr ';'
     { $block::stmts.add(new Return($expr.e)); }
-    | block
+    | def { $block::stmts.add($def.self); }
+    | block { $block::stmts.add($block.self); }
     ;
-block locals [ StatementList stmts = new StatementList() ]
+block returns [Body self]
+    locals [ StatementList stmts = new StatementList(new ArrayList()) ]
     : '{' stmt+ '}'
+      { $self = $stmts; }
     ;
 type returns [Type t]
     : ID { $t = Type.fromText($ID.text); };

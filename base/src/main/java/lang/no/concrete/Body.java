@@ -1,4 +1,6 @@
 package lang.no.concrete;
 
-public interface Body {
+import lang.no.concrete.stmt.Stmt;
+
+public interface Body extends Stmt {
 }
