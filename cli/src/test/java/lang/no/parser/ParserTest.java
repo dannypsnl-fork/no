@@ -10,9 +10,10 @@ import org.antlr.v4.runtime.*;
 public class ParserTest {
     @Test void testProgAll() {
         var in = new ANTLRInputStream(
-            "x := 1 " +
-            "   y:=2" +
-            "z() := 2"
+            "x := 1;\n" +
+            "   y:=2;\n" +
+            "z() := 2;\n" +
+            "add(a: int, b: int) := a+b;\n"
         );
         var lexer = new NoLexer(in);
         var tokens = new CommonTokenStream(lexer);
@@ -21,9 +22,10 @@ public class ParserTest {
         assertEquals("x", ((VarDef) prog.get(0)).name());
         assertEquals("y", ((VarDef) prog.get(1)).name());
         assertEquals("z", ((FnDef) prog.get(2)).name());
+        assertEquals("add", ((FnDef) prog.get(3)).name());
     }
     @Test void testVarDef() {
-        var in = new ANTLRInputStream("x := 1*2+3");
+        var in = new ANTLRInputStream("x := 1*2+3;");
         var lexer = new NoLexer(in);
         var tokens = new CommonTokenStream(lexer);
         var parser = new NoParser(tokens);
