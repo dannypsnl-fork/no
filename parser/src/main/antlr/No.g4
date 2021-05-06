@@ -7,11 +7,14 @@ import lang.no.concrete.expr.*;
 import lang.no.concrete.stmt.*;
 }
 
-prog : top*
+prog locals [
+    List<TopStmt> tops = new ArrayList<>();
+    ]
+    : top*
     ;
 top returns [TopStmt s]
-    : def { $s = $def.self; }
-    | defn { $s = $defn.self; }
+    : def { $prog::tops.add($def.self); }
+    | defn { $prog::tops.add($defn.self); }
     ;
 def returns [VarDef self]
     : ID ':=' expr { $self = new VarDef($ID.text, $expr.e); }
