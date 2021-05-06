@@ -17,4 +17,4 @@ generateGrammarSource {
     arguments += ["-visitor", "-long-messages"]
 }
 
-idea.module.generatedSourceDirs.add('${buildDir}/generated-src')
+idea.module.generatedSourceDirs.add(file('${buildDir}/generated-src'))
