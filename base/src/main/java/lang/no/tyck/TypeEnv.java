@@ -14,6 +14,12 @@ public class TypeEnv {
             return parent.lookup(name);
         }
     }
+    void bind(String name, Type type) {
+        if (self.get(name) != null) {
+            throw new RuntimeException();
+        }
+        self.put(name, type);
+    }
 
     TypeEnv() { new TypeEnv(null); }
     TypeEnv(TypeEnv parent) {
