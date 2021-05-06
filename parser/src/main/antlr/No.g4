@@ -17,7 +17,9 @@ top returns [TopStmt s]
     : using { $prog::tops.add($using.self); }
     | defn { $prog::tops.add($defn.self); }
     | def { $prog::tops.add($def.self); }
+    | expr { $prog::tops.add($expr.e); }
     ;
+
 using returns [Using self]
     : 'using' ID ';'
       { $self = new Using($ID.text); }
@@ -37,22 +39,26 @@ defn returns [FnDef self]
     ;
 
 param : ID ':' type { $defn::params.add(new Param($ID.text, $type.t)); };
-stmt returns [Stmt s]
-    : 'return' expr ';'
-    { $block::stmts.add(new Return($expr.e)); }
-    | def { $block::stmts.add($def.self); }
-    | block { $block::stmts.add($block.self); }
-    ;
 block returns [Body self]
     locals [ Block stmts = new Block(new ArrayList()) ]
     : '{' stmt+ '}' { $self = $stmts; }
     ;
+stmt returns [Stmt s]
+    : 'return' expr ';'
+    { $block::stmts.add(new Return($expr.e)); }
+    | def { $block::stmts.add($def.self); }
+    | expr { $block::stmts.add($expr.e); }
+    | block { $block::stmts.add($block.self); }
+    ;
+
 type returns [Type t]
     : ID { $t = Type.fromText($ID.text); };
 
 expr returns [Expr e]
     : ID { $e = new Var($ID.text); }
     | INT { $e = Int.fromText($INT.text); }
+    // function call
+    | f=expr '(' (expr (',' expr)*)? ')'
     | l=expr op=('*'|'/') r=expr { $e = new Binary(Op.fromText($op.text), $l.e, $r.e); }
     | l=expr op=('+'|'-') r=expr { $e = new Binary(Op.fromText($op.text), $l.e, $r.e); }
     ;
