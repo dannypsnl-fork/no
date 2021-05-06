@@ -1,4 +1,4 @@
-package lang.no.conrete;
+package lang.no.concrete;
 
 public interface Stmt {
 }

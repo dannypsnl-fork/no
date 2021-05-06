@@ -1,4 +1,5 @@
 module lang.no.parser {
   requires org.antlr.antlr4.runtime;
+  requires lang.no.concrete;
   exports lang.no.parser;
 }

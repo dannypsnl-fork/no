@@ -1,9 +1,8 @@
-package lang.no.conrete;
+package lang.no.concrete;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import lang.no.conrete.expr.*;
-import lang.no.conrete.*;
+import lang.no.concrete.expr.*;
 
 public class ConcreteTest {
     @Test void testProgAll() {
