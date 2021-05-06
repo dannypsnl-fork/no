@@ -57,13 +57,16 @@ type returns [Type t]
 expr returns [Expr e]
     : ID { $e = new Var($ID.text); }
     | INT { $e = Int.fromText($INT.text); }
+    | STRING { $e = new Str($STRING.text); }
     // function call
-    | f=expr '(' (expr (',' expr)*)? ')'
+    | expr '(' (expr (',' expr)*)? ')'
+      { $e = new FnCall(_localctx.expr().stream().map(ctx -> ctx.e).toList()); }
     | l=expr op=('*'|'/') r=expr { $e = new Binary(Op.fromText($op.text), $l.e, $r.e); }
     | l=expr op=('+'|'-') r=expr { $e = new Binary(Op.fromText($op.text), $l.e, $r.e); }
     ;
 
 INT : DIGIT+;
+STRING : '"' .*? '"';
 ID : LETTER (LETTER|DIGIT)*;
 fragment LETTER : [a-zA-Z];
 fragment DIGIT : [0-9];
