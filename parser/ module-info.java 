@@ -1,0 +1,4 @@
+module lang.no.parser {
+  requires org.antlr.antlr4.runtime;
+  exports lang.no.parser;
+}

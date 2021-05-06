@@ -13,7 +13,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.0-jre'
-    implementation(project(":lib"))
+    implementation(project(":parser"))
 }
 
 application {

@@ -10,5 +10,5 @@
 rootProject.name = 'no'
 include(
   'app',
-  'lib',
+  'parser',
 )
