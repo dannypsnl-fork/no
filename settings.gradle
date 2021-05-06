@@ -7,8 +7,7 @@
  * in the user manual at https://docs.gradle.org/7.0/userguide/multi_project_builds.html
  */
 
-rootProject.name = 'no'
+rootProject.name = 'no-lang'
 include(
-  'app',
   'parser',
 )
