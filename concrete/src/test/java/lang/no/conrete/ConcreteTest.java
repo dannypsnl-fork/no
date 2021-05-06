@@ -9,7 +9,7 @@ public class ConcreteTest {
     @Test void testProgAll() {
         assertEquals(
             new VarDef("x", new Int(1)),
-            new VarDef("x", new Int(2))
+            new VarDef("x", new Int(1))
         );
     }
 }
