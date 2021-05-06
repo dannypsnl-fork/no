@@ -22,12 +22,18 @@ public class ParserTest {
         assertEquals("y", ((VarDef) prog.get(1).s).name());
     }
     @Test void testVarDef() {
-        var in = new ANTLRInputStream("x := 1");
+        var in = new ANTLRInputStream("x := 1*2+3");
         var lexer = new NoLexer(in);
         var tokens = new CommonTokenStream(lexer);
         var parser = new NoParser(tokens);
         var v = parser.top().def().v;
         assertEquals("x", v.name());
-        assertEquals(new Int(1), v.expr());
+        assertEquals(new Binary("+",
+                        new Binary("*",
+                            new Int(1),
+                            new Int(2)
+                        ),
+                        new Int(3)
+                    ), v.expr());
     }
 }
