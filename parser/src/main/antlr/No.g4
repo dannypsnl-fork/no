@@ -4,18 +4,33 @@ grammar No;
 package lang.no.parser;
 import lang.no.concrete.*;
 import lang.no.concrete.expr.*;
+import lang.no.concrete.stmt.*;
 }
 
 prog : top*
     ;
-
-top returns [Stmt s]
-    : def { $s = $def.v; }
+top returns [TopStmt s]
+    : def { $s = $def.self; }
+    | defn { $s = $defn.self; }
+    ;
+def returns [VarDef self]
+    : ID ':=' expr { $self = new VarDef($ID.text, $expr.e); }
+    ;
+defn returns [FnDef self]
+    locals [
+    StatementList stmts = new StatementList()
+    ]
+    : ID '(' ')' ':=' expr
+     { $self = new FnDef($ID.text, $expr.e); }
+    | ID '(' ')' '{'
+        stmt+
+      '}'
+     { $self = new FnDef($ID.text, $stmts); }
+    ;
+stmt returns [Stmt s]
+    : 'return' expr { $defn::stmts.add(new Return($expr.e)); }
     ;
 
-def returns [VarDef v]
-    : ID ':=' expr { $v = new VarDef($ID.text, $expr.e); }
-    ;
 expr returns [Expr e]
     : ID { $e = new Var($ID.text); }
     | INT { $e = Int.fromText($INT.text); }

@@ -1,4 +1,6 @@
 package lang.no.concrete.expr;
 
-public interface Expr {
+import lang.no.concrete.Body;
+
+public interface Expr extends Body {
 }
