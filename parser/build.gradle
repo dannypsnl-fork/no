@@ -12,9 +12,9 @@ dependencies {
     antlr "org.antlr:antlr4:4.5"
 }
 
-var genDir = file("src/main/java")
-idea.module.generatedSourceDirs.add(genDir)
-tasks.register("cleanSource") {
-    group = "build"
-    genDir.deleteRecursively()
+generateGrammarSource {
+    maxHeapSize = "64m"
+    arguments += ["-visitor", "-long-messages"]
 }
+
+idea.module.generatedSourceDirs.add('${buildDir}/generated-src')
