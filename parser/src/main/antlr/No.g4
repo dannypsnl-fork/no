@@ -45,8 +45,7 @@ stmt returns [Stmt s]
     ;
 block returns [Body self]
     locals [ StatementList stmts = new StatementList(new ArrayList()) ]
-    : '{' stmt+ '}'
-      { $self = $stmts; }
+    : '{' stmt+ '}' { $self = $stmts; }
     ;
 type returns [Type t]
     : ID { $t = Type.fromText($ID.text); };
