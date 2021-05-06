@@ -11,7 +11,9 @@ top : def
 
 def : ID ':=' expr ;
 expr : ID
-    | INTEGER;
+    | INTEGER
+    | expr ('*'|'/') expr
+    | expr ('+'|'-') expr;
 
 INTEGER : DIGIT+;
 ID : LETTER;
