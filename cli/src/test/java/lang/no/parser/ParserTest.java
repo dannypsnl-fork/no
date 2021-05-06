@@ -7,7 +7,10 @@ import org.antlr.v4.runtime.*;
 
 public class ParserTest {
     @Test void testProgAll() {
-        var in = new ANTLRInputStream("x := 1 y:=2");
+        var in = new ANTLRInputStream(
+                "x := 1 " +
+                "   y:=2"
+        );
         var lexer = new NoLexer(in);
         var tokens = new CommonTokenStream(lexer);
         var parser = new NoParser(tokens);
