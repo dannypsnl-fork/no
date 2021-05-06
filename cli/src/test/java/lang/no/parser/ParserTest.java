@@ -2,7 +2,6 @@ package lang.no.parser;
 
 import lang.no.concrete.expr.*;
 import lang.no.concrete.*;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import lang.no.parser.NoParser;
