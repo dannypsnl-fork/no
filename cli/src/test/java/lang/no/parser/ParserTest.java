@@ -30,9 +30,9 @@ public class ParserTest {
     }
     @Test void testExpr() {
         assertEquals(new Int(1), parseExpr("1"));
-        assertEquals(new Binary("+", new Int(2), new Int(3)), parseExpr("2+3"));
-        assertEquals(new Binary("+",
-                new Binary("*", new Int(1), new Int(2)),
+        assertEquals(new Binary(Op.ADD, new Int(2), new Int(3)), parseExpr("2+3"));
+        assertEquals(new Binary(Op.ADD,
+                new Binary(Op.MUL, new Int(1), new Int(2)),
                 new Int(3)), parseExpr("1*2+3"));
     }
 

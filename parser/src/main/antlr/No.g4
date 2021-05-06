@@ -19,8 +19,8 @@ def returns [VarDef v]
 expr returns [Expr e]
     : ID { $e = new Var($ID.text); }
     | INT { $e = Int.fromText($INT.text); }
-    | l=expr op=('*'|'/') r=expr { $e = new Binary($op.text, $l.e, $r.e); }
-    | l=expr op=('+'|'-') r=expr { $e = new Binary($op.text, $l.e, $r.e); }
+    | l=expr op=('*'|'/') r=expr { $e = new Binary(Op.fromText($op.text), $l.e, $r.e); }
+    | l=expr op=('+'|'-') r=expr { $e = new Binary(Op.fromText($op.text), $l.e, $r.e); }
     ;
 
 INT : DIGIT+;
