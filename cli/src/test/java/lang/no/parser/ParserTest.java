@@ -10,10 +10,12 @@ import org.antlr.v4.runtime.*;
 public class ParserTest {
     @Test void testProgAll() {
         var in = new ANTLRInputStream(
-            "x := 1;\n" +
-            "   y:=2;\n" +
-            "z() := 2;\n" +
-            "add(a: int, b: int) := a+b;\n"
+            """
+            x := 1;
+            y:=2;
+            z() := 2;
+            add(a: int, b: int) := a+b;
+            """
         );
         var lexer = new NoLexer(in);
         var tokens = new CommonTokenStream(lexer);
