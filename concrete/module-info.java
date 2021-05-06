@@ -1,3 +1,3 @@
-module no.lang.conrete {
+module no.lang.concrete {
     exports lang.no.concrete;
 }

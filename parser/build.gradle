@@ -19,3 +19,9 @@ generateGrammarSource {
     arguments += ["-visitor", "-long-messages"]
     outputDirectory = file('src/main/java/lang/no/parser')
 }
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(16)
+    }
+}

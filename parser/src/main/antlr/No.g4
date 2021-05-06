@@ -14,10 +14,11 @@ top : def
 
 def : ID ':=' expr ;
 expr returns [Expr e]
-    : ID
-    | INT
-    | expr ('*'|'/') expr
-    | expr ('+'|'-') expr;
+    : ID { $e = new Var($ID.text); }
+    | INT { $e = Int.fromText($INT.text); }
+    | l=expr op=('*'|'/') r=expr { $e = new Binary($op.text, $l.e, $r.e); }
+    | l=expr op=('+'|'-') r=expr { $e = new Binary($op.text, $l.e, $r.e); }
+    ;
 
 INT : DIGIT+;
 ID : LETTER;

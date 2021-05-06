@@ -1,5 +1,8 @@
 package lang.no.parser;
 
+import lang.no.concrete.expr.*;
+import lang.no.concrete.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import lang.no.parser.NoParser;
@@ -8,8 +11,8 @@ import org.antlr.v4.runtime.*;
 public class ParserTest {
     @Test void testProgAll() {
         var in = new ANTLRInputStream(
-                "x := 1 " +
-                "   y:=2"
+            "x := 1 " +
+            "   y:=2"
         );
         var lexer = new NoLexer(in);
         var tokens = new CommonTokenStream(lexer);
@@ -26,5 +29,6 @@ public class ParserTest {
         var parser = new NoParser(tokens);
         var c = parser.top();
         assertEquals("x", c.def().ID().getText());
+        assertEquals(new Int(1), c.def().expr().e);
     }
 }
