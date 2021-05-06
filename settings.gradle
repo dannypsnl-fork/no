@@ -9,5 +9,6 @@
 
 rootProject.name = 'no-lang'
 include(
+  'cli',
   'parser',
 )
