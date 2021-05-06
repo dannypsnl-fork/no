@@ -31,9 +31,9 @@ def returns [VarDef self]
 defn returns [FnDef self]
     locals [ List<Param> params = new ArrayList<Param>() ]
     : ID '(' (param (',' param)*)? ')' ':=' expr ';'
-    { $self = new FnDef($ID.text, $params, null, $expr.e); }
+      { $self = new FnDef($ID.text, $params, null, $expr.e); }
     | ID '(' (param (',' param)*)? ')' ':' type block
-    { $self = new FnDef($ID.text, $params, $type.t, $block.self); }
+      { $self = new FnDef($ID.text, $params, $type.t, $block.self); }
     ;
 
 param : ID ':' type { $defn::params.add(new Param($ID.text, $type.t)); };

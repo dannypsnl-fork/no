@@ -1,11 +1,16 @@
 package lang.no.parser;
 
-import lang.no.concrete.expr.*;
-import lang.no.concrete.*;
+import lang.no.concrete.FnDef;
+import lang.no.concrete.Using;
+import lang.no.concrete.VarDef;
+import lang.no.concrete.expr.Binary;
+import lang.no.concrete.expr.Expr;
+import lang.no.concrete.expr.Int;
+import lang.no.concrete.expr.Op;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import lang.no.parser.NoParser;
-import org.antlr.v4.runtime.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
     @Test void testProgAll() {
@@ -16,7 +21,7 @@ public class ParserTest {
             y:=2;
             z() := 2;
             add(a: int, b: int) := a+b;
-            add2(a: int, b: int) {
+            add2(a: int, b: int): int {
                 x := a;
                 y := b;
                 return x+y;
