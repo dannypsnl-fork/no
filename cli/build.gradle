@@ -25,10 +25,10 @@ java {
     }
 }
 
-ext {
-    javaMainClass = "lang.no.cli.Compiler"
+application {
+    mainClassName = 'lang.no.cli.Compiler'
 }
 
-application {
-    mainClassName = javaMainClass
+run {
+    args += 'examples/hello.no'
 }
