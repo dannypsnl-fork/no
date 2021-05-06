@@ -17,18 +17,17 @@ public class ParserTest {
         var lexer = new NoLexer(in);
         var tokens = new CommonTokenStream(lexer);
         var parser = new NoParser(tokens);
-        var c = parser.prog();
-        var tops = c.top();
-        assertEquals("x", tops.get(0).def().ID().getText());
-        assertEquals("y", tops.get(1).def().ID().getText());
+        var prog = parser.prog().top();
+        assertEquals("x", ((VarDef) prog.get(0).s).name());
+        assertEquals("y", ((VarDef) prog.get(1).s).name());
     }
     @Test void testVarDef() {
         var in = new ANTLRInputStream("x := 1");
         var lexer = new NoLexer(in);
         var tokens = new CommonTokenStream(lexer);
         var parser = new NoParser(tokens);
-        var c = parser.top();
-        assertEquals("x", c.def().ID().getText());
-        assertEquals(new Int(1), c.def().expr().e);
+        var v = parser.top().def().v;
+        assertEquals("x", v.name());
+        assertEquals(new Int(1), v.expr());
     }
 }

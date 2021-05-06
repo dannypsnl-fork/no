@@ -9,10 +9,13 @@ import lang.no.concrete.expr.*;
 prog : top*
     ;
 
-top : def
+top returns [Stmt s]
+    : def { $s = $def.v; }
     ;
 
-def : ID ':=' expr ;
+def returns [VarDef v]
+    : ID ':=' expr { $v = new VarDef($ID.text, $expr.e); }
+    ;
 expr returns [Expr e]
     : ID { $e = new Var($ID.text); }
     | INT { $e = Int.fromText($INT.text); }
