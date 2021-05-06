@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     // Use JUnit test framework.
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation "junit:junit:4.13.1"
     // antlr plugin
     antlr "org.antlr:antlr4:4.5"
 }
@@ -20,10 +20,6 @@ generateGrammarSource {
     arguments += ["-visitor", "-long-messages"]
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src']
-        }
-    }
+test {
+    useJUnit()
 }
