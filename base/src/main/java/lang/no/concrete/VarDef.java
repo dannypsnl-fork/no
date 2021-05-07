@@ -1,6 +1,6 @@
 package lang.no.concrete;
 
-import lang.no.concrete.expr.Expr;
+import lang.no.core.expr.Expr;
 import lang.no.concrete.stmt.Stmt;
 import lang.no.core.Type;
 import lang.no.tyck.TypeChecker;

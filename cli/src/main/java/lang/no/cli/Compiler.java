@@ -1,10 +1,10 @@
 package lang.no.cli;
 
 import lang.no.concrete.TopStmt;
-import lang.no.concrete.expr.Expr;
-import lang.no.concrete.expr.FnCall;
-import lang.no.concrete.expr.Str;
-import lang.no.concrete.expr.Var;
+import lang.no.core.expr.Expr;
+import lang.no.core.expr.FnCall;
+import lang.no.core.expr.Str;
+import lang.no.core.expr.Var;
 import lang.no.parser.NoLexer;
 import lang.no.parser.NoParser;
 import org.antlr.v4.runtime.ANTLRFileStream;

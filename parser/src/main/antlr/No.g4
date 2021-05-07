@@ -3,7 +3,7 @@ grammar No;
 @header{
 package lang.no.parser;
 import lang.no.concrete.*;
-import lang.no.concrete.expr.*;
+import lang.no.core.expr.*;
 import lang.no.concrete.stmt.*;
 import lang.no.core.*;
 }

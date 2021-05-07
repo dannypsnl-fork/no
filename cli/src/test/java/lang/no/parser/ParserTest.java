@@ -4,9 +4,9 @@ import lang.no.TestHelper;
 import lang.no.concrete.FnDef;
 import lang.no.concrete.Using;
 import lang.no.concrete.VarDef;
-import lang.no.concrete.expr.Binary;
-import lang.no.concrete.expr.Int;
-import lang.no.concrete.expr.Op;
+import lang.no.core.expr.Binary;
+import lang.no.core.expr.Int;
+import lang.no.core.expr.Op;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

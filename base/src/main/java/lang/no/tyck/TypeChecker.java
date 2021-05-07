@@ -1,9 +1,9 @@
 package lang.no.tyck;
 
 import lang.no.concrete.*;
-import lang.no.concrete.expr.Expr;
-import lang.no.concrete.expr.Int;
-import lang.no.concrete.expr.Var;
+import lang.no.core.expr.Expr;
+import lang.no.core.expr.Int;
+import lang.no.core.expr.Var;
 import lang.no.concrete.stmt.Return;
 import lang.no.concrete.stmt.Stmt;
 import lang.no.core.Type;
