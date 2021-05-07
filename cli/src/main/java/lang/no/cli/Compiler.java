@@ -1,15 +1,15 @@
 package lang.no.cli;
 
+import lang.no.codegen.CodeGenerator;
 import lang.no.concrete.TopStmt;
-import lang.no.core.expr.Expr;
 import lang.no.core.expr.FnCall;
-import lang.no.core.expr.Str;
-import lang.no.core.expr.Var;
 import lang.no.parser.NoLexer;
 import lang.no.parser.NoParser;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Compiler {
@@ -19,15 +19,11 @@ public class Compiler {
         var tokens = new CommonTokenStream(lexer);
         var parser = new NoParser(tokens);
         var tops = parser.prog().tops;
+        var outputFile = new File("./examples/hello.ss");
+        var codeGenerator = new CodeGenerator(new FileOutputStream(outputFile));
         for (TopStmt stmt : tops) {
             if (stmt instanceof FnCall f) {
-                System.out.print('(');
-                System.out.print(((Var) f.fn).name());
-                for (Expr e : f.args) {
-                    System.out.print(' ');
-                    System.out.print(((Str) e).value());
-                }
-                System.out.print(')');
+                codeGenerator.visit(f);
             }
         }
     }

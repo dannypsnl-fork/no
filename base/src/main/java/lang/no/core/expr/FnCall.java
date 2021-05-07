@@ -1,7 +1,9 @@
 package lang.no.core.expr;
 
+import lang.no.codegen.CodeGenerator;
 import lang.no.tyck.TypeChecker;
 
+import java.io.IOException;
 import java.util.List;
 
 public class FnCall implements Expr {
@@ -14,4 +16,9 @@ public class FnCall implements Expr {
 
     @Override
     public void accept(TypeChecker tc) {}
+
+    @Override
+    public void accept(CodeGenerator c) throws IOException {
+        c.visit(this);
+    }
 }
