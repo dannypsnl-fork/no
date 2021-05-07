@@ -26,7 +26,9 @@ public class TypeChecker {
             check(fnTypeEnv, f.retType(), f.body());
         }
     }
-    public void visit(Using u) {}
+    public void visit(Using u) {
+        // TODO: update current environment, but this have to wait more module details
+    }
 
     private void typeMustEq(Type expected, Type actual) {
         assert expected.equals(actual);
