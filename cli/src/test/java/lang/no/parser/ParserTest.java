@@ -30,9 +30,9 @@ public class ParserTest {
         assertEquals("io", ((Using) tops.get(0)).module());
         assertEquals("x", ((VarDef) tops.get(1)).name);
         assertEquals("y", ((VarDef) tops.get(2)).name);
-        assertEquals("z", ((FnDef) tops.get(3)).name());
-        assertEquals("add", ((FnDef) tops.get(4)).name());
-        assertEquals("add2", ((FnDef) tops.get(5)).name());
+        assertEquals("z", ((FnDef) tops.get(3)).name);
+        assertEquals("add", ((FnDef) tops.get(4)).name);
+        assertEquals("add2", ((FnDef) tops.get(5)).name);
     }
     @Test void testVarDef() {
         var tops = TestHelper.parseTops("x := 1*2+3;");

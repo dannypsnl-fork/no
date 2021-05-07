@@ -16,14 +16,16 @@ public class TypeChecker {
         check(topEnv, null, v);
     }
     public void visit(FnDef f) {
-        if (f.body() instanceof Expr e) {
-            typeMustEq(f.retType(), infer(e));
+        if (f.body instanceof Expr e) {
+            var typeOfExpr = infer(e);
+            typeMustEq(f.retType, typeOfExpr);
+            f.retType = typeOfExpr;
         } else {
             var fnTypeEnv = new TypeEnv(topEnv);
-            for (Param p : f.params()) {
+            for (Param p : f.params) {
                 fnTypeEnv.bind(p.name(), p.type());
             }
-            check(fnTypeEnv, f.retType(), f.body());
+            check(fnTypeEnv, f.retType, f.body);
         }
     }
     public void visit(Using u) {
