@@ -10,7 +10,7 @@ public class VarDef implements TopStmt, Stmt {
     public Type type;
     public Expr expr;
 
-    VarDef(String name, Type type, Expr expr) {
+    public VarDef(String name, Type type, Expr expr) {
         this.name = name;
         this.type = type;
         this.expr = expr;
