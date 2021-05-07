@@ -9,6 +9,7 @@ import lang.no.concrete.stmt.Stmt;
 import lang.no.core.Type;
 
 public class TypeChecker {
+    // TODO: error collector
     public TypeEnv topEnv = new TypeEnv();
 
     public void visit(VarDef v) {
@@ -37,8 +38,11 @@ public class TypeChecker {
                 check(env, expected, s);
             }
         } else if (stmt instanceof VarDef v) {
-            if (v.type() != null) {
-                typeMustEq(v.type(), infer(env, v.expr()));
+            var typeOfExpr = infer(env, v.expr);
+            if (v.type != null) {
+                typeMustEq(v.type, typeOfExpr);
+            } else {
+                v.type = typeOfExpr;
             }
         } else if (stmt instanceof Return r) {
             typeMustEq(expected, infer(env, r.expr()));
