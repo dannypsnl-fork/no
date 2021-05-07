@@ -12,9 +12,7 @@ public class TypeChecker {
     public TypeEnv topEnv = new TypeEnv();
 
     public void visit(VarDef v) {
-        if (v.type() != null) {
-            typeMustEq(v.type(), infer(v.expr()));
-        }
+        check(topEnv, null, v);
     }
     public void visit(FnDef f) {
         if (f.body() instanceof Expr e) {
@@ -37,6 +35,10 @@ public class TypeChecker {
         if (stmt instanceof Block b) {
             for (Stmt s : b.stmtList()) {
                 check(env, expected, s);
+            }
+        } else if (stmt instanceof VarDef v) {
+            if (v.type() != null) {
+                typeMustEq(v.type(), infer(env, v.expr()));
             }
         } else if (stmt instanceof Return r) {
             typeMustEq(expected, infer(env, r.expr()));
