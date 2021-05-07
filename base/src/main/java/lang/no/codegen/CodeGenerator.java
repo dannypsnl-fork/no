@@ -1,8 +1,8 @@
 package lang.no.codegen;
 
-import lang.no.concrete.FnDef;
-import lang.no.concrete.Using;
-import lang.no.concrete.VarDef;
+import lang.no.concrete.*;
+import lang.no.concrete.stmt.Return;
+import lang.no.concrete.stmt.Stmt;
 import lang.no.core.expr.*;
 
 import java.io.IOException;
@@ -13,18 +13,53 @@ public class CodeGenerator {
     public CodeGenerator(OutputStream t) {
         target = t;
     }
-    public void visit(FnDef fnDef) { }
-    public void visit(VarDef varDef) { }
-    public void visit(Using using) { }
-    public void visit(FnCall f) throws IOException {
-        write("(");
-        visit(f.fn);
-        for (Expr arg : f.args) {
+    public void visit(TopStmt stmt) throws IOException {
+        if (stmt instanceof FnDef fnDef) {
+            write("(define (");
+            write(fnDef.name);
+            for (Param p : fnDef.params) {
+                write(" ");
+                write(p.name());
+            }
+            write(")");
+            write(fnDef.body);
+            write(")");
+        } else if (stmt instanceof VarDef varDef) {
+            write("(define ");
+            write(varDef.name);
             write(" ");
-            visit(arg);
+            write(varDef.expr);
+            write(")");
+        } else {
+            visit((Stmt) stmt);
         }
-        write(")");
     }
+
+    private void write(Body body) throws IOException {
+        if (body instanceof Block b) {
+            for (Stmt s : b.stmtList()) {
+                visit(s);
+            }
+        } else if (body instanceof Expr e) {
+            visit(e);
+        }
+    }
+
+    public void visit(Stmt stmt) throws IOException {
+        if (stmt instanceof FnCall f) {
+            write("(");
+            visit(f.fn);
+            for (Expr arg : f.args) {
+                write(" ");
+                visit(arg);
+            }
+            write(")");
+        } else if (stmt instanceof Return r) {
+            // FIXME: return needs `let/cc`
+            write(r.expr());
+        }
+    }
+
     public void visit(Expr expr) throws IOException {
         if (expr instanceof Var v) {
             write(v.name());

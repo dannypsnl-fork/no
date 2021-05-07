@@ -1,12 +1,13 @@
 package lang.no.concrete;
 
 import lang.no.codegen.CodeGenerator;
-import lang.no.concrete.stmt.Stmt;
 import lang.no.core.Type;
 import lang.no.core.expr.Expr;
 import lang.no.tyck.TypeChecker;
 
-public class VarDef implements TopStmt, Stmt {
+import java.io.IOException;
+
+public class VarDef implements TopStmt {
     public String name;
     public Type type;
     public Expr expr;
@@ -20,7 +21,7 @@ public class VarDef implements TopStmt, Stmt {
     public void accept(TypeChecker tc) { tc.visit(this); }
 
     @Override
-    public void accept(CodeGenerator c) {
+    public void accept(CodeGenerator c) throws IOException {
         c.visit(this);
     }
 }

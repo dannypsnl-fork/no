@@ -19,12 +19,10 @@ public class Compiler {
         var tokens = new CommonTokenStream(lexer);
         var parser = new NoParser(tokens);
         var tops = parser.prog().tops;
-        var outputFile = new File("./examples/hello.ss");
+        var outputFile = new File("./examples/def.ss");
         var codeGenerator = new CodeGenerator(new FileOutputStream(outputFile));
         for (TopStmt stmt : tops) {
-            if (stmt instanceof FnCall f) {
-                codeGenerator.visit(f);
-            }
+            codeGenerator.visit(stmt);
         }
     }
 }

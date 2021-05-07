@@ -4,6 +4,7 @@ import lang.no.codegen.CodeGenerator;
 import lang.no.core.Type;
 import lang.no.tyck.TypeChecker;
 
+import java.io.IOException;
 import java.util.List;
 
 public class FnDef implements TopStmt {
@@ -22,5 +23,5 @@ public class FnDef implements TopStmt {
     public void accept(TypeChecker tc) { tc.visit(this); }
 
     @Override
-    public void accept(CodeGenerator c) { c.visit(this); }
+    public void accept(CodeGenerator c) throws IOException { c.visit(this); }
 }

@@ -30,5 +30,5 @@ application {
 }
 
 run {
-    args += 'examples/hello.no'
+    args += 'examples/def.no'
 }
