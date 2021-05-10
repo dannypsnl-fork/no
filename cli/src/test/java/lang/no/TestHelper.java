@@ -1,7 +1,7 @@
 package lang.no;
 
 import lang.no.concrete.TopStmt;
-import lang.no.core.expr.Expr;
+import lang.no.concrete.expr.Expr;
 import lang.no.parser.NoLexer;
 import lang.no.parser.NoParser;
 import org.antlr.v4.runtime.CharStreams;

@@ -1,4 +1,4 @@
-package lang.no.core.expr;
+package lang.no.concrete.expr;
 
 import lang.no.concrete.Body;
 import lang.no.concrete.TopStmt;

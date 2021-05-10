@@ -1,4 +1,4 @@
-package lang.no.core.expr;
+package lang.no.concrete.expr;
 
 public enum Op {
     MUL, DIV, ADD, SUB;

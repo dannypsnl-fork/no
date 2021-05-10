@@ -3,7 +3,7 @@ package lang.no.codegen;
 import lang.no.concrete.*;
 import lang.no.concrete.stmt.Return;
 import lang.no.concrete.stmt.Stmt;
-import lang.no.core.expr.*;
+import lang.no.concrete.expr.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -16,19 +16,19 @@ public class CodeGenerator {
     public void visit(TopStmt stmt) throws IOException {
         if (stmt instanceof FnDef fnDef) {
             write("(define (");
-            write(fnDef.name);
-            for (Param p : fnDef.params) {
+            write(fnDef.name());
+            for (Param p : fnDef.params()) {
                 write(" ");
                 write(p.name());
             }
             write(")");
-            write(fnDef.body);
+            write(fnDef.body());
             write(")");
         } else if (stmt instanceof VarDef varDef) {
             write("(define ");
-            write(varDef.name);
+            write(varDef.name());
             write(" ");
-            write(varDef.expr);
+            write(varDef.expr());
             write(")");
         } else {
             visit((Stmt) stmt);

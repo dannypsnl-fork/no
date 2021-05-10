@@ -3,9 +3,8 @@ grammar No;
 @header{
 package lang.no.parser;
 import lang.no.concrete.*;
-import lang.no.core.expr.*;
+import lang.no.concrete.expr.*;
 import lang.no.concrete.stmt.*;
-import lang.no.core.*;
 }
 
 prog locals [
@@ -26,19 +25,17 @@ using returns [Using self]
     ;
 def returns [VarDef self]
     : ID ':=' expr ';'
-      { $self = new VarDef(new Loc($start), $ID.text, null, $expr.e); }
-    | ID ':' type ':=' expr ';'
-      { $self = new VarDef(new Loc($start), $ID.text, $type.t, $expr.e); }
+      { $self = new VarDef(new Loc($start), $ID.text, $expr.e); }
     ;
 defn returns [FnDef self]
     locals [ List<Param> params = new ArrayList<Param>() ]
     : ID '(' (param (',' param)*)? ')' ':=' expr ';'
-      { $self = new FnDef($ID.text, $params, null, $expr.e); }
-    | ID '(' (param (',' param)*)? ')' ':' type block
-      { $self = new FnDef($ID.text, $params, $type.t, $block.self); }
+      { $self = new FnDef($ID.text, $params, $expr.e); }
+    | ID '(' (param (',' param)*)? ')' block
+      { $self = new FnDef($ID.text, $params, $block.self); }
     ;
 
-param : ID ':' type { $defn::params.add(new Param($ID.text, $type.t)); };
+param : ID { $defn::params.add(new Param($ID.text)); };
 block returns [Body self]
     locals [ Block stmts = new Block(new ArrayList()) ]
     : '{' stmt+ '}' { $self = $stmts; }
@@ -50,9 +47,6 @@ stmt returns [Stmt s]
     | expr { $block::stmts.add($expr.e); }
     | block { $block::stmts.add($block.self); }
     ;
-
-type returns [Type t]
-    : ID { $t = Type.fromText($ID.text); };
 
 expr returns [Expr e]
     : ID { $e = new Var($ID.text); }
