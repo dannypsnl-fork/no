@@ -17,6 +17,13 @@ public class TestHelper {
         var parser = new NoParser(tokens);
         return parser.expr().e;
     }
+    public static TopStmt parseTop(String code) {
+        var in = CharStreams.fromString(code);
+        var lexer = new NoLexer(in);
+        var tokens = new CommonTokenStream(lexer);
+        var parser = new NoParser(tokens);
+        return parser.prog().tops.get(0);
+    }
     public static List<TopStmt> parseTops(String code) {
         var in = CharStreams.fromString(code);
         var lexer = new NoLexer(in);
