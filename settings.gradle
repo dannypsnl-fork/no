@@ -3,4 +3,5 @@ include(
   'cli',
   'base',
   'parser',
+  'test',
 )
