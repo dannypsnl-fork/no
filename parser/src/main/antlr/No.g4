@@ -26,9 +26,9 @@ using returns [Using self]
     ;
 def returns [VarDef self]
     : ID ':=' expr ';'
-      { $self = new VarDef(new Loc($start, $stop), $ID.text, null, $expr.e); }
+      { $self = new VarDef(new Loc($start), $ID.text, null, $expr.e); }
     | ID ':' type ':=' expr ';'
-      { $self = new VarDef(new Loc($start, $stop), $ID.text, $type.t, $expr.e); }
+      { $self = new VarDef(new Loc($start), $ID.text, $type.t, $expr.e); }
     ;
 defn returns [FnDef self]
     locals [ List<Param> params = new ArrayList<Param>() ]
