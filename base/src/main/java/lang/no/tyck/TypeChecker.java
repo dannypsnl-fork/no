@@ -33,6 +33,7 @@ public class TypeChecker {
     }
 
     private void typeMustEq(Type expected, Type actual) {
+        // TODO: error builder
         assert expected.equals(actual);
     }
 
