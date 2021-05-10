@@ -4,7 +4,7 @@ import lang.no.codegen.CodeGenerator;
 import lang.no.concrete.TopStmt;
 import lang.no.parser.NoLexer;
 import lang.no.parser.NoParser;
-import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.io.File;
@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class Compiler {
     public static void main(String[] args) throws IOException {
-        var in = new ANTLRFileStream(args[0]);
+        var in = CharStreams.fromFileName(args[0]);
         var lexer = new NoLexer(in);
         var tokens = new CommonTokenStream(lexer);
         var parser = new NoParser(tokens);
