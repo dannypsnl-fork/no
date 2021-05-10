@@ -1,8 +1,6 @@
 package lang.no.cli;
 
 import lang.no.codegen.CodeGenerator;
-import lang.no.concrete.TopStmt;
-import lang.no.core.expr.FnCall;
 import lang.no.parser.NoLexer;
 import lang.no.parser.NoParser;
 import org.antlr.v4.runtime.ANTLRFileStream;
