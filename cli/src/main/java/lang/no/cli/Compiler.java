@@ -13,12 +13,13 @@ import java.io.IOException;
 
 public class Compiler {
     public static void main(String[] args) throws IOException {
-        var in = CharStreams.fromFileName(args[0]);
+        var inputFileName = args[0];
+        var in = CharStreams.fromFileName(inputFileName);
         var lexer = new NoLexer(in);
         var tokens = new CommonTokenStream(lexer);
         var parser = new NoParser(tokens);
         var tops = parser.prog().tops;
-        var outputFile = new File("./examples/def.ss");
+        var outputFile = new File(inputFileName.replace("no", "ss"));
         var codeGenerator = new CodeGenerator(new FileOutputStream(outputFile));
         for (TopStmt stmt : tops) {
             codeGenerator.visit(stmt);
