@@ -3,10 +3,6 @@ plugins {
     id 'idea'
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     // antlr plugin
     antlr "org.antlr:antlr4:4.9.2"
@@ -17,10 +13,4 @@ generateGrammarSource {
     maxHeapSize = "64m"
     arguments += ["-visitor", "-long-messages"]
     outputDirectory = file('src/main/java/lang/no/parser')
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(16)
-    }
 }

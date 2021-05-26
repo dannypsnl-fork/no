@@ -1,26 +1,11 @@
 plugins {
     id 'application'
-    id 'java'
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
     implementation group: 'org.antlr', name: 'antlr4-runtime', version: '4.9.2'
     implementation(project(':parser'))
     implementation(project(':base'))
-}
-
-test {
-    useJUnitPlatform()
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(16)
-    }
 }
 
 application {

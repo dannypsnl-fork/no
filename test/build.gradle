@@ -1,10 +1,5 @@
 plugins {
-    id 'java'
     id 'jacoco'
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
@@ -24,11 +19,5 @@ jacocoTestReport {
         xml.enabled true
         html.enabled true
         csv.enabled false
-    }
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(16)
     }
 }
